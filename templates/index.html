@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% block content %}
+    <h1>Hello World</h1>
+    <div id="data"></div>
+    {% endblock %}
+
+
+    <script>
+    getQuestions = () => {
+        $.ajax({
+        url: `http://127.0.0.1:5000/labels`, //TODO: update request URL
+        type: 'GET',
+        dataType: 'json',
+        success: (result) => {
+            const timeline = document.getElementById('data')
+            const new_data = result.data
+            var ulelement = document.createElement("ul");    
+            for (var i = 0; i < new_data.length; i++){
+                const free = new_data[i].label_one
+                const labeled = [free]
+                const propertyValues = Object.values(labeled);
+                propertyValues.sort()
+                console.log(propertyValues)
+            ulelement.innerHTML += `<li>
+                  ${propertyValues}
+                  
+                  <ul><li> ${new_data[i].label_two}
+                    <ul><li>
+                         ${new_data[i].label_three}
+                         <ul><li>
+                             ${new_data[i].label_three} 
+                            </li></ul>
+                            </li></ul>
+                     </li></ul>
+                  </li>`
+            } 
+            timeline.appendChild(ulelement);
+            // console.log(new_data)
+        },
+        error: (error) => {
+            alert('Unable to load questions. Please try your request again');
+            return;
+        },
+        });
+    };
+
+    getQuestions()
+    </script>
+</body>
+</html>
