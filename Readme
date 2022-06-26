@@ -1,0 +1,30 @@
+Technologies used
+
+Flask
+Flask-Cors
+Flask-RESTful
+Flask-SQLAlchemy
+Jinja2
+psycopg2-binary
+SQLAlchemy
+Werkzeug
+postgresql
+
+API ENDPOINTS
+/items
+parses the data from the Json file https://dev.shepherd.appoly.io/fruit.json
+and inserted the data to postgres database by taking each label from each level
+seperating it and storing it in the database table each having their column.
+
+table
+label_one|label_two|label_three|label_four
+
+/labels
+collecting the data from the postgres database storing the data from the database in a 
+dictionary  new_data and then returning it as a json 
+
+GET labels
+
+{
+    "data":new_data
+}
